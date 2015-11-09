@@ -22,23 +22,29 @@
     <ProjectGuid>{7E534C8E-1ACE-4A88-8807-39A11ED4DA18}</ProjectGuid>
     <RootNamespace>Project64</RootNamespace>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v120_xp</PlatformToolset>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ImportGroup Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="$(SolutionDir)PropertySheets\Win32.$(Configuration).props" />
+    <Import Project="$(SolutionDir)PropertySheets\Platform.$(Configuration).props" />
   </ImportGroup>
-  <PropertyGroup>
-    <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
-  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ItemDefinitionGroup>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <MinimumRequiredVersion Condition="'$(Platform)'=='Win32'">5.01</MinimumRequiredVersion>
+      <MinimumRequiredVersion Condition="'$(Platform)'=='x64'">5.02</MinimumRequiredVersion>
+      <StackReserveSize>1</StackReserveSize>
+      <DataExecutionPrevention>false</DataExecutionPrevention>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Logging.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Multilanguage\LanguageSelector.cpp" />
+    <ClCompile Include="N64 System\Mips\Rumblepak.cpp" />
     <ClCompile Include="Plugins\Plugin Base.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -69,6 +75,7 @@
     <ClCompile Include="Settings\SettingType\SettingsType-TempBool.cpp" />
     <ClCompile Include="Settings\SettingType\SettingsType-TempNumber.cpp" />
     <ClCompile Include="Settings\SettingType\SettingsType-TempString.cpp" />
+    <ClCompile Include="User Interface\Cheat Class UI.cpp" />
     <ClCompile Include="User Interface\Frame Per Second Class.cpp" />
     <ClCompile Include="User Interface\Gui Class.cpp" />
     <ClCompile Include="User Interface\Main Menu Class.cpp" />
@@ -116,7 +123,6 @@
     <ClCompile Include="N64 System\Mips\System Events.cpp" />
     <ClCompile Include="N64 System\Mips\System Timing.cpp" />
     <ClCompile Include="N64 System\Mips\TLB class.cpp" />
-    <ClCompile Include="N64 System\C Core\Logging.cpp" />
     <ClCompile Include="N64 System\C Core\r4300i Commands.cpp" />
     <ClCompile Include="N64 System\Recompiler\Code Block.cpp" />
     <ClCompile Include="N64 System\Recompiler\Code Section.cpp" />
@@ -168,20 +174,21 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="User Interface\UI Resources.rc">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">User Interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">User Interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">User Interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">User Interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>User Interface;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Logging.h" />
     <ClInclude Include="Multilanguage.h" />
+    <ClInclude Include="Multilanguage\LanguageSelector.h" />
     <ClInclude Include="N64 System.h" />
+    <ClInclude Include="N64 System\Mips\Rumblepak.h" />
     <ClInclude Include="Plugin.h" />
     <ClInclude Include="Plugins\Plugin Base.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="User Interface.h" />
+    <ClInclude Include="User Interface\Cheat Class UI.h" />
     <ClInclude Include="Version.h" />
     <ClInclude Include="WTL App.h" />
     <ClInclude Include="Settings\Debug Settings.h" />
@@ -261,7 +268,6 @@
     <ClInclude Include="N64 System\Mips\System Timing.h" />
     <ClInclude Include="N64 System\Mips\TLB Class.h" />
     <ClInclude Include="N64 System\Mips\TranslateVaddr.h" />
-    <ClInclude Include="N64 System\C Core\Logging.h" />
     <ClInclude Include="N64 System\C Core\r4300i Commands.h" />
     <ClInclude Include="N64 System\Debugger\Debugger - Memory Dump.h" />
     <ClInclude Include="N64 System\Debugger\Debugger - Memory Search.h" />
@@ -312,12 +318,5 @@
       <Project>{b4a4b994-9111-42b1-93c2-6f1ca8bc4421}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\Glide64\Glide64.vcxproj">
-      <Project>{a4d13408-a794-4199-8fc7-4a9a32505005}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
 </Project>

@@ -16,7 +16,6 @@
 #include <math.h>
 
 #include "User Interface.h"
-#include "N64 System/Types.h"
 
 class CNotification;
 #include "N64 System/Profiling Class.h"
@@ -28,6 +27,7 @@ class CNotification;
 #include "N64 System/Mips/OpCode.h"
 #include "N64 System/Recompiler/X86ops.h"
 #include "N64 System/Mips/Mempak.h"
+#include "N64 System/Mips/Rumblepak.h"
 #include "N64 System/Mips/FlashRam.h"
 #include "N64 System/Mips/Sram.h"
 #include "N64 System/Mips/Eeprom.h"
@@ -44,7 +44,6 @@ class CNotification;
 
 //C Core - to be upgrdaded and removed
 #include "N64 System/C Core/r4300i Commands.h"
-#include "N64 System/C Core/Logging.h"
 
 //Interpter
 #include "N64 System/Interpreter/Interpreter Ops.h"
@@ -64,7 +63,6 @@ class CNotification;
 #include "N64 System/Recompiler/Section Info.h"
 #include "N64 System/Recompiler/Function Info.h"
 #include "N64 System/Recompiler/Function Map Class.h"
-#include "N64 System/Recompiler/Delay Slot Map Class.h"
 #include "N64 System/Recompiler/Recompiler Class.h"
 #include "N64 System/Recompiler/x86CodeLog.h"
 
@@ -77,4 +75,3 @@ class CNotification;
 //Main Files
 #include "N64 System/N64 Class.h"
 #include "N64 System/System Globals.h"
-

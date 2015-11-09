@@ -24,6 +24,7 @@
  *
  */
 
+#include <stdio.h>
 #include <windows.h>
 #include <shellapi.h>
 extern "C" {
@@ -59,6 +60,7 @@ public:
 		DWORD OldTimerAddr = StopTimer();
 		m_CurrentTimerAddr = Address;
 
+#if defined(_M_IX86) && defined(_MSC_VER)
 		DWORD HiValue, LoValue;
 		_asm {
 			pushad
@@ -69,14 +71,17 @@ public:
 		}
 		m_StartTimeHi = HiValue;
 		m_StartTimeLo = LoValue;
+#else
+		DebugBreak();
+#endif
 		return OldTimerAddr;
 	}
 	DWORD StopTimer  ( void )
-	{
-		DWORD HiValue, LoValue;
-		
+	{		
 		if (m_CurrentTimerAddr == Timer_None) { return m_CurrentTimerAddr; }
 
+#if defined(_M_IX86) && defined(_MSC_VER)
+		DWORD HiValue, LoValue;
 		_asm {
 			pushad
 			rdtsc
@@ -85,10 +90,10 @@ public:
 			popad
 		}
 
-		__int64 StopTime  = ((unsigned __int64)HiValue << 32) + (unsigned __int64)LoValue;
+		__int64 StopTime = ((unsigned __int64)HiValue << 32) + (unsigned __int64)LoValue;
 		__int64 StartTime = ((unsigned __int64)m_StartTimeHi << 32) + (unsigned __int64)m_StartTimeLo;
 		__int64 TimeTaken = StopTime - StartTime;
-		
+
 		PROFILE_ENRTY Entry = m_Entries.find(m_CurrentTimerAddr);
 		if (Entry != m_Entries.end())
 		{
@@ -96,8 +101,11 @@ public:
 		}
 		else
 		{
-			m_Entries.insert(PROFILE_ENRTIES::value_type(m_CurrentTimerAddr,TimeTaken));
+			m_Entries.insert(PROFILE_ENRTIES::value_type(m_CurrentTimerAddr, TimeTaken));
 		}
+#else
+		DebugBreak();
+#endif
 
 		DWORD OldTimerAddr = m_CurrentTimerAddr;
 		m_CurrentTimerAddr = Timer_None;
@@ -161,8 +169,9 @@ public:
 			{
 				char Buffer[255];
 				float CpuUsage = (float)(((double)ItemList[count]->second / (double)TotalTime) * 100);
+
 				if (CpuUsage <= 0.2) { continue; }
-				sprintf(Buffer,"Func 0x%08X",ItemList[count]->first);
+				sprintf(Buffer, "Func 0x%08X", ItemList[count]->first);
 				for (int NameID = 0; NameID < (sizeof(TimerNames) / sizeof(TIMER_NAME)); NameID++)
 				{
 					if (ItemList[count]->first == (DWORD)TimerNames[NameID].Timer)

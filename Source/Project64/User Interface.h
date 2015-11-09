@@ -31,27 +31,34 @@ struct RECT_STRUCT
 	long bottom;
 };
 
-struct WINDOWS_PAINTSTRUCT {
-    HDC         hdc;
-    int         fErase;
-    RECT_STRUCT rcPaint;
-    int         fRestore;
-    int         fIncUpdate;
-    BYTE        rgbReserved[32];
+struct WINDOWS_PAINTSTRUCT
+{
+	HDC         hdc;
+	int         fErase;
+	RECT_STRUCT rcPaint;
+	int         fRestore;
+	int         fIncUpdate;
+	BYTE        rgbReserved[32];
 };
 
 #define CALLBACK    __stdcall
 
 class CN64System;
 
+#ifndef BYPASS_WINDOWS_GUI
+#define WINDOWS_UI
+// Remove this to test compilation outside of the Windows ATL environment.
+#endif
+
 #include <WTL App.h>
 #include <User Interface/MenuShortCuts.h>
+
 #include ".\\User Interface\\Rom Browser.h"
 #include ".\\User Interface\\Gui Class.h"
-#include ".\\User Interface\\Menu Class.h"
 #include ".\\User Interface\\Menu Class.h"
 #include ".\\User Interface\\Main Menu Class.h"
 #include ".\\User Interface\\Notification Class.h"
 #include ".\\User Interface\\Frame Per Second Class.h"
 #include ".\\User Interface\\resource.h"
 #include ".\\User Interface\\Settings Config.h"
+#include ".\\User Interface\\Cheat Class UI.h"

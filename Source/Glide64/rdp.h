@@ -115,9 +115,9 @@ extern wxUint32 frame_count; // frame counter
 #define uc(x) coord[x<<1]
 #define vc(x) coord[(x<<1)+1]
 
-#if defined __VISUALC__
-#define DECLAREALIGN16VAR(var) __declspec(align(16)) float (var)
-#elif defined __GNUG__
+#if defined(_MSC_VER)
+#define DECLAREALIGN16VAR(var) __declspec(align(16)) float var
+#elif defined(__GNUG__)
 #define DECLAREALIGN16VAR(var) float (var) __attribute__ ((aligned(16)))
 #endif
 
@@ -330,6 +330,7 @@ typedef struct {
   #define  hack_Tonic       (1<<26)  //tonic trouble
   #define  hack_Yoshi       (1<<27)  //Yoshi Story
   #define  hack_Zelda       (1<<28)  //zeldas hacks
+  #define  hack_OoT         (1<<29)  //zelda OoT hacks
   wxUint32 hacks;
 
   //wrapper settings
@@ -829,12 +830,20 @@ extern const char *CIStatus[];
 #define FBL_D_1 2
 #define FBL_D_0 3
 
+/*
+ * taken straight from MSVC <windef.h> in case of other compilers
+ *
+ * Careful!  These macros can sabotage std::max and std::min from <vector>.
+ * The only solution is to include <vector> first, before <windef.h> or
+ * before defining the below macros (or just don't use <windows.h>).
+ */
 #ifndef max
-#define max(a,b)            (((a) > (b)) ? (a) : (b))
+#define max(a, b)       (((a) > (b)) ? (a) : (b))
 #endif
 #ifndef min
-#define min(a,b)            (((a) < (b)) ? (a) : (b))
+#define min(a, b)       (((a) < (b)) ? (a) : (b))
 #endif
+
 #ifndef TRUE
 #define TRUE 1
 #endif

@@ -39,8 +39,6 @@ public:
 	void Reset();
 	void ResetRecompCode(bool bAllocate);
 
-	bool GenerateX86Code (CCodeBlock & BlockInfo, CCodeSection * Section, DWORD Test );
-
 	//Self modifying code methods
 	void ClearRecompCode_Virt ( DWORD VirtualAddress, int length, REMOVE_REASON Reason );
 	void ClearRecompCode_Phys ( DWORD PhysicalAddress, int length, REMOVE_REASON Reason );
@@ -55,11 +53,6 @@ private:
 	CRecompiler& operator=(const CRecompiler&); // Disable assignment
 	
 	CCompiledFunc * CompilerCode();
-	bool            Compiler4300iBlock  ( CCompiledFunc * info );
-
-	// Compiling code
-	bool CreateSectionLinkage ( CCodeSection * Section );
-	bool DisplaySectionInformation (CCodeSection * Section, DWORD ID, DWORD Test);
 
 	// Main loops for the different look up methods
 	void RecompilerMain_VirtualTable();
@@ -70,8 +63,6 @@ private:
 	void RecompilerMain_Lookup_validate();
 	void RecompilerMain_Lookup_validate_TLB();
 
-	void RemoveFunction (CCompiledFunc * FunInfo, bool DelaySlot, REMOVE_REASON Reason );
-
 	CCompiledFuncList  m_Functions;
 	CRegisters       & m_Registers;
 	CProfiling       & m_Profile; 
@@ -79,5 +70,5 @@ private:
 	DWORD              m_MemoryStack;
 
 	//Quick access to registers
-	DWORD            & PROGRAM_COUNTER;
+    uint32_t            & PROGRAM_COUNTER;
 };

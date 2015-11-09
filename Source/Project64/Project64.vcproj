@@ -146,6 +146,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath=".\Logging.cpp"
+				>
+			</File>
+			<File
 				RelativePath="main.cpp"
 				>
 			</File>
@@ -285,6 +289,10 @@
 				Name="User Interface Source"
 				>
 				<File
+					RelativePath=".\User Interface\Cheat Class UI.cpp"
+					>
+				</File>
+				<File
 					RelativePath="User Interface\Frame Per Second Class.cpp"
 					>
 				</File>
@@ -408,6 +416,10 @@
 					RelativePath="Multilanguage\Language Class.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\Multilanguage\LanguageSelector.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="N64 System Source"
@@ -480,6 +492,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\N64 System\Mips\Rumblepak.cpp"
+						>
+					</File>
+					<File
 						RelativePath="N64 System\Mips\Sram.cpp"
 						>
 					</File>
@@ -499,10 +515,6 @@
 				<Filter
 					Name="C Core Source"
 					>
-					<File
-						RelativePath="N64 System\C Core\Logging.cpp"
-						>
-					</File>
 					<File
 						RelativePath="N64 System\C Core\r4300i Commands.cpp"
 						>
@@ -778,7 +790,7 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
-				RelativePath="Version.h"
+				RelativePath=".\Logging.h"
 				>
 			</File>
 			<File
@@ -803,6 +815,10 @@
 			</File>
 			<File
 				RelativePath="User Interface.h"
+				>
+			</File>
+			<File
+				RelativePath="Version.h"
 				>
 			</File>
 			<File
@@ -929,6 +945,10 @@
 				Name="User Interface Headers"
 				>
 				<File
+					RelativePath=".\User Interface\Cheat Class UI.h"
+					>
+				</File>
+				<File
 					RelativePath="User Interface\Frame Per Second Class.h"
 					>
 				</File>
@@ -1044,12 +1064,20 @@
 					RelativePath="Multilanguage\Language Class.h"
 					>
 				</File>
+				<File
+					RelativePath=".\Multilanguage\LanguageSelector.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="N64 System Headers"
 				>
 				<File
 					RelativePath="N64 System\Cheat Class.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Debugger.h"
 					>
 				</File>
 				<File
@@ -1132,6 +1160,10 @@
 						>
 					</File>
 					<File
+						RelativePath=".\N64 System\Mips\Rumblepak.h"
+						>
+					</File>
+					<File
 						RelativePath="N64 System\Mips\Sram.h"
 						>
 					</File>
@@ -1155,10 +1187,6 @@
 				<Filter
 					Name="C Core Headers"
 					>
-					<File
-						RelativePath="N64 System\C Core\Logging.h"
-						>
-					</File>
 					<File
 						RelativePath="N64 System\C Core\r4300i Commands.h"
 						>
@@ -1316,19 +1344,19 @@
 					Name="Zlib Headers"
 					>
 					<File
-						RelativePath="..\3rd Party\zlib\zconf.h"
-						>
-					</File>
-					<File
-						RelativePath="..\3rd Party\zlib\zlib.h"
-						>
-					</File>
-					<File
 						RelativePath="..\3rd Party\zlib\contrib\minizip\unzip.h"
 						>
 					</File>
 					<File
+						RelativePath="..\3rd Party\zlib\zconf.h"
+						>
+					</File>
+					<File
 						RelativePath="..\3rd Party\zlib\contrib\minizip\zip.h"
+						>
+					</File>
+					<File
+						RelativePath="..\3rd Party\zlib\zlib.h"
 						>
 					</File>
 				</Filter>

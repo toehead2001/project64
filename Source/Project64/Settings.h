@@ -10,19 +10,23 @@
 ****************************************************************************/
 #pragma once
 
-#define MaxPluginSetting	65535
+enum
+{
+	MaxPluginSetting = 65535
+};
 
-enum SettingID {
+enum SettingID
+{
 	//Default values
 	Default_None,
 	Default_Constant,
-	
+
 	//information - temp keys
 	Info_ShortCutsChanged,
 
 	//Support Files
-	SupportFile_Settings, 
-	SupportFile_SettingsDefault, 
+	SupportFile_Settings,
+	SupportFile_SettingsDefault,
 	SupportFile_RomDatabase,
 	SupportFile_RomDatabaseDefault,
 	SupportFile_Glide64RDB,
@@ -51,7 +55,7 @@ enum SettingID {
 	Setting_AutoFullscreen,
 	Setting_CheckEmuRunning,
 	Setting_EraseGameDefaults,
-		
+
 	Setting_AutoZipInstantSave,
 	Setting_RememberCheats,
 	Setting_LanguageDir,
@@ -97,6 +101,7 @@ enum SettingID {
 	Rdb_AiCountPerBytes,
 	Rdb_AudioResetOnLoad,
 	Rdb_AllowROMWrites,
+	Rdb_CRC_Recalc,
 
 	//Individual Game Settings
 	Game_IniKey,
@@ -143,6 +148,7 @@ enum SettingID {
 	Game_AiCountPerBytes,
 	Game_AudioResetOnLoad,
 	Game_AllowROMWrites,
+	Game_CRC_Recalc,
 
 	// General Game running info
 	GameRunning_LoadingInProgress,
@@ -152,7 +158,8 @@ enum SettingID {
 	GameRunning_InstantSaveFile,
 	GameRunning_LimitFPS,
 	GameRunning_ScreenHertz,
-	
+	GameRunning_InReset,
+
 	//User Interface
 	UserInterface_BasicMode,
 	UserInterface_ShowCPUPer,
@@ -246,14 +253,14 @@ enum SettingID {
 	Cheat_Range,
 	Cheat_RangeNotes,
 
-	FirstRSPDefaultSet,   LastRSPDefaultSet   = FirstRSPDefaultSet   + MaxPluginSetting,
-	FirstRSPSettings,     LastRSPSettings     = FirstRSPSettings     + MaxPluginSetting,
-	FirstGfxDefaultSet,   LastGfxDefaultSet   = FirstGfxDefaultSet   + MaxPluginSetting,
-	FirstGfxSettings,     LastGfxSettings     = FirstGfxSettings     + MaxPluginSetting,
+	FirstRSPDefaultSet, LastRSPDefaultSet = FirstRSPDefaultSet + MaxPluginSetting,
+	FirstRSPSettings, LastRSPSettings = FirstRSPSettings + MaxPluginSetting,
+	FirstGfxDefaultSet, LastGfxDefaultSet = FirstGfxDefaultSet + MaxPluginSetting,
+	FirstGfxSettings, LastGfxSettings = FirstGfxSettings + MaxPluginSetting,
 	FirstAudioDefaultSet, LastAudioDefaultSet = FirstAudioDefaultSet + MaxPluginSetting,
-	FirstAudioSettings,   LastAudioSettings   = FirstAudioSettings   + MaxPluginSetting,
-	FirstCtrlDefaultSet,  LastCtrlDefaultSet  = FirstCtrlDefaultSet  + MaxPluginSetting,
-	FirstCtrlSettings,    LastCtrlSettings    = FirstCtrlSettings    + MaxPluginSetting,
+	FirstAudioSettings, LastAudioSettings = FirstAudioSettings + MaxPluginSetting,
+	FirstCtrlDefaultSet, LastCtrlDefaultSet = FirstCtrlDefaultSet + MaxPluginSetting,
+	FirstCtrlSettings, LastCtrlSettings = FirstCtrlSettings + MaxPluginSetting,
 };
 
 #include "Support.h"

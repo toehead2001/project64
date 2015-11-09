@@ -16,44 +16,42 @@ typedef std::map<DWORD, DWORD> FUNC_CALLS;
 
 class CPlugins;
 class CRSP_Plugin;
+class CRecompiler;
 
 //#define TEST_SP_TRACKING  //track the SP to make sure all ops pick it up fine
 
 class CN64System :
-	private CMipsMemory_CallBack,
-	private CTLB_CB,
-	private CSystemEvents,
-	protected CN64SystemSettings,
-	public CGameSettings,
-	protected CDebugSettings,
-	public CDebugger
+    public CMipsMemory_CallBack,
+    public CTLB_CB,
+    private CSystemEvents,
+    protected CN64SystemSettings,
+    public CGameSettings,
+    protected CDebugSettings
 {
 public:
-	CN64System ( CPlugins * Plugins, bool SavesReadOnly );
-	virtual ~CN64System ( void );
+    CN64System(CPlugins * Plugins, bool SavesReadOnly);
+    virtual ~CN64System(void);
 
 	struct ThreadInfo {
 		HANDLE * ThreadHandle;
 		DWORD    ThreadID;
 	};
 
-	CProfiling m_Profile;
-	CCheats    m_Cheats;
-	bool  m_EndEmulation;
-	SAVE_CHIP_TYPE m_SaveUsing;
+    CProfiling m_Profile;
+    CCheats    m_Cheats;
+    bool  m_EndEmulation;
+    SAVE_CHIP_TYPE m_SaveUsing;
 
-	//Methods
-	static bool RunFileImage ( const char * FileLoc );
-	static void CloseSystem ( void );
-		
+    //Methods
+    static bool RunFileImage(const char * FileLoc);
+    static void CloseSystem(void);
+
 	void   CloseCpu         ();
 	void   ExternalEvent    ( SystemEvent action ); //covers gui interacting and timers etc..
 	stdstr ChooseFileToOpen ( HWND hParent );
 	void   DisplayRomInfo   ( HWND hParent );
-	void   SelectCheats     ( HWND hParent );
 	void   StartEmulation   ( bool NewThread );
 	void   SyncToAudio      ();
-	bool   IsDialogMsg      ( MSG * msg );
 	void   IncreaseSpeed    () { m_Limitor.IncreaseSpeed(); }
 	void   DecreaseSpeed    () { m_Limitor.DecreaseSpeed(); }
 	void   Reset            ( bool bInitReg, bool ClearMenory );
@@ -68,6 +66,8 @@ public:
 
 	bool   DmaUsed() const { return m_DMAUsed; }
 	void   SetDmaUsed(bool DMAUsed) { m_DMAUsed = DMAUsed; }
+    void   SetCheatsSlectionChanged(bool changed) { m_CheatsSlectionChanged = changed; }
+    bool   HasCheatsSlectionChanged(void) const { return m_CheatsSlectionChanged; }
 	DWORD  GetButtons(int Control) const { return m_Buttons[Control]; }
 
 	//Variable used to track that the SP is being handled and stays the same as the real SP in sync core
@@ -96,28 +96,22 @@ private:
 
 	void   ExecuteCPU       ();
 	void   RefreshScreen    ();
-	bool   InternalEvent    ();
 	void   DumpSyncErrors   ( CN64System * SecondCPU );
 	void   StartEmulation2  ( bool NewThread );
 	bool   SetActiveSystem  ( bool bActive = true );
 	void   InitRegisters    ( bool bPostPif, CMipsMemory & MMU );
+	void    DisplayRSPListCount();
 
 	//CPU Methods
 	void   ExecuteRecompiler();
 	void   ExecuteInterpret();
 	void   ExecuteSyncCPU();
 
-	void   AddEvent(SystemEvent Event);
-
-	//Notification of changing conditions
-	void   FunctionStarted(DWORD NewFuncAddress, DWORD OldFuncAddress, DWORD ReturnAddress);
-	void   FunctionEnded(DWORD ReturnAddress, DWORD StackPos);
-
 	//Mark information saying that the CPU has stopped
 	void   CpuStopped();
 
 	//Function in CMipsMemory_CallBack
-	virtual bool WriteToProtectedMemory(DWORD Address, int length);
+	virtual bool WriteToProtectedMemory(uint32_t Address, int length);
 
 	//Functions in CTLB_CB
 	void TLB_Mapped(DWORD VAddr, DWORD Len, DWORD PAddr, bool bReadOnly);
@@ -150,6 +144,7 @@ private:
 	DWORD           m_TLBLoadAddress;
 	DWORD           m_TLBStoreAddress;
 	DWORD           m_SyncCount;
+    bool            m_CheatsSlectionChanged;
 
 	//When Syncing cores this is the PC where it last Sync'ed correctly
 	DWORD m_LastSuccessSyncPC[10];

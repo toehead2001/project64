@@ -9,14 +9,15 @@
 *                                                                           *
 ****************************************************************************/
 #include "stdafx.h"
+
 #include "Settings Page.h"
 
-CConfigSettingSection::CConfigSettingSection( LPCWSTR PageTitle ) :
-	m_PageTitle(PageTitle)
+CConfigSettingSection::CConfigSettingSection(LPCWSTR PageTitle) :
+m_PageTitle(PageTitle)
 {
 }
 
-CConfigSettingSection::~CConfigSettingSection ()
+CConfigSettingSection::~CConfigSettingSection()
 {
 	for (size_t i = 0; i < m_Pages.size(); i++)
 	{
@@ -26,12 +27,12 @@ CConfigSettingSection::~CConfigSettingSection ()
 	m_Pages.clear();
 }
 
-void CConfigSettingSection::AddPage(CSettingsPage * Page )
+void CConfigSettingSection::AddPage(CSettingsPage * Page)
 {
 	m_Pages.push_back(Page);
 }
 
-CSettingsPage * CConfigSettingSection::GetPage ( int PageNo )
+CSettingsPage * CConfigSettingSection::GetPage(int PageNo)
 {
 	if (PageNo < 0 || PageNo >= (int)m_Pages.size())
 	{
