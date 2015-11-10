@@ -1,6 +1,6 @@
 /****************************************************************************
 *                                                                           *
-* Project 64 - A Nintendo 64 emulator.                                      *
+* Project64 - A Nintendo 64 emulator.                                      *
 * http://www.pj64-emu.com/                                                  *
 * Copyright (C) 2012 Project64. All rights reserved.                        *
 *                                                                           *
@@ -114,8 +114,8 @@ private:
 	virtual bool WriteToProtectedMemory(uint32_t Address, int length);
 
 	//Functions in CTLB_CB
-	void TLB_Mapped(DWORD VAddr, DWORD Len, DWORD PAddr, bool bReadOnly);
-	void TLB_Unmaped(DWORD VAddr, DWORD Len);
+	void TLB_Mapped(uint32_t VAddr, uint32_t Len, uint32_t PAddr, bool bReadOnly);
+	void TLB_Unmaped(uint32_t VAddr, uint32_t Len);
 	void TLB_Changed();
 
     CPlugins      * const m_Plugins;  //The plugin container 
@@ -141,8 +141,8 @@ private:
 	bool            m_TestTimer;
 	DWORD           m_NextInstruction;
 	DWORD           m_JumpToLocation;
-	DWORD           m_TLBLoadAddress;
-	DWORD           m_TLBStoreAddress;
+    uint32_t        m_TLBLoadAddress;
+    uint32_t        m_TLBStoreAddress;
 	DWORD           m_SyncCount;
     bool            m_CheatsSlectionChanged;
 
